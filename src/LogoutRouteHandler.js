@@ -5,7 +5,7 @@ import { Actions } from './redux';
 
 class LogoutRouteHandler extends Component {
   componentDidMount() {
-    this.props.Logout(this.props.history.replace);
+    this.props.Logout(this.props.history.replace, this.props.loginLocation);
   }
 
   render() {

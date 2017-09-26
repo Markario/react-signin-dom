@@ -19,7 +19,7 @@ class TokenRouteHandler extends Component {
     let data = tokenParam ? parseToken(tokenParam) : null;
 
     //Will handle both success and failure scenarios
-    this.props.LoginUser(data.user, data.token, this.props.history.replace);
+    this.props.LoginUser(data.user, data.token, this.props.loginLocation, this.props.defaultLocation, this.props.history.replace);
   }
 
   render() {

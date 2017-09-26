@@ -7,7 +7,7 @@ import { Actions, Selectors } from './redux';
 class PrivateComponent extends Component {
   componentDidMount() {
     if(!this.props.isLoggedIn && this.props.location.pathname !== "/login"){
-      this.props.RedirectToLogin(this.props.location.pathname, this.props.history.replace);
+      this.props.RedirectToLogin(this.props.location.pathname, this.props.loginLocation, this.props.history.replace);
     }
   }
 
