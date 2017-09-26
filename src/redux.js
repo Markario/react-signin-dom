@@ -6,7 +6,5 @@ import { MakeActions } from 'redux-signin';
 export const Actions = MakeActions({
 	getItem: window.localStorage.getItem.bind(window.localStorage), 
 	setItem: window.localStorage.setItem.bind(window.localStorage), 
-	removeItem: window.localStorage.removeItem.bind(window.localStorage),  
-	loginLocation: "/login",
-	defaultLocation: "/"
+	removeItem: window.localStorage.removeItem.bind(window.localStorage)
 });

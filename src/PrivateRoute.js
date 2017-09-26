@@ -6,14 +6,21 @@ import { Actions, Selectors } from './redux';
 
 class PrivateComponent extends Component {
   componentDidMount() {
-    if(!this.props.isLoggedIn && this.props.location.pathname !== "/login"){
-      this.props.RedirectToLogin(this.props.location.pathname, this.props.loginLocation, this.props.history.replace);
+    console.log("componentDidMount", { props: this.props });
+    const hasUserLoaded = this.props.hasUserLoaded;
+    const isLoggedIn = this.props.isLoggedIn;
+    const pathname = this.props.location.pathname;
+    if(hasUserLoaded && !isLoggedIn && pathname !== "/login"){
+      console.log("redirecting to ", loginLocation);
+      this.props.RedirectToLogin(pathname, this.props.loginLocation, this.props.history.replace);
     }
   }
 
   render() {
-    let isLoggedIn = this.props.isLoggedIn;
-    let pathname = this.props.location.pathname;
+    console.log("render", { props: this.props });
+    const hasUserLoaded = this.props.hasUserLoaded;
+    const isLoggedIn = this.props.isLoggedIn;
+    const pathname = this.props.location.pathname;
 
     if(!isLoggedIn && pathname !== "/login"){
       return null;
@@ -23,22 +30,23 @@ class PrivateComponent extends Component {
   }
 }
 const mapStateToProps = (state, ownProps) => ({
-  isLoggedIn: Selectors.isUserLoggedIn(state)
+  isLoggedIn: Selectors.isUserLoggedIn(state),
+  hasUserLoaded: Selectors.hasUserLoaded(state)
 });
 
 PrivateComponent = connect(mapStateToProps, Actions)(PrivateComponent);
 
 const privateComponent = (props, component) => <PrivateComponent component={component} {...props} />;
 
-const renderRoute = ({ component, render, children, ...rest }) => {
+const renderRoute = ({ component, render, children, loginLocation, ...rest }) => {
   if(children){
     throw new Error("PrivateRoute is not compatible with Route.children props");
   }
 
   if(component){
-    return <Route {...rest} render={ props => privateComponent(props, React.createElement(component, props)) } />
+    return <Route {...rest} render={ props => privateComponent( { loginLocation, ...props }, React.createElement(component, props)) } />
   }else if(render){
-    return <Route {...rest} render={ props => privateComponent(props, render(props)) } />
+    return <Route {...rest} render={ props => privateComponent( { loginLocation, ...props }, render(props)) } />
   } 
 }
 
