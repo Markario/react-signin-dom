@@ -1,6 +1,6 @@
 {
   "name": "react-signin-dom",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "react-signin React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -19,6 +19,7 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "react": "^15.x",
     "react-dom": "^15.x",
     "react-redux": "^5.x",
